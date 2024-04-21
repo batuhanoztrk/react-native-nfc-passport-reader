@@ -26,7 +26,7 @@ enum NfcPassportReaderEvent {
 
 export type StartReadingParams = {
   mrz: string;
-  imagesIncluded?: boolean; // default: false
+  includeImages?: boolean; // default: false
 };
 
 export type NfcResult = {

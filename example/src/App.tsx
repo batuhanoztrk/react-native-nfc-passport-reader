@@ -43,7 +43,7 @@ export default function App() {
   const startReading = () => {
     NfcPassportReader.startReading({
       mrz: 'P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<1234567890',
-      imagesIncluded: true,
+      includeImages: true,
     });
   };
 

@@ -37,7 +37,7 @@ class NfcPassportReaderModule(reactContext: ReactApplicationContext) :
   private val nfcPassportReader = NfcPassportReader(reactContext)
   private var adapter: NfcAdapter? = NfcAdapter.getDefaultAdapter(reactContext)
   private var mrzInfo: MRZInfo? = null
-  private var imagesIncluded = false
+  private var includeImages = false
   private var isReading = false
   private val jsonToReactMap = JsonToReactMap()
 
@@ -154,7 +154,7 @@ class NfcPassportReaderModule(reactContext: ReactApplicationContext) :
                 mrzInfo!!.dateOfExpiry
               )
 
-              val result = nfcPassportReader.readPassport(IsoDep.get(tag), bacKey, imagesIncluded)
+              val result = nfcPassportReader.readPassport(IsoDep.get(tag), bacKey, includeImages)
 
               val map = result.serializeToMap()
               val reactMap = jsonToReactMap.convertJsonToMap(JSONObject(map))
@@ -190,8 +190,8 @@ class NfcPassportReaderModule(reactContext: ReactApplicationContext) :
     readableMap?.let {
       val mrzString = readableMap.getString("mrz")
 
-      imagesIncluded =
-        readableMap.hasKey("imagesIncluded") && readableMap.getBoolean("imagesIncluded")
+      includeImages =
+        readableMap.hasKey("includeImages") && readableMap.getBoolean("includeImages")
 
       if (mrzString.isNullOrEmpty()) {
         sendErrorEvent(Exception("MRZ string is null or empty"))
