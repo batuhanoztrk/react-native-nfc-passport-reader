@@ -19,7 +19,7 @@ class NfcPassportReader(context: Context) {
   private val bitmapUtil = BitmapUtil(context)
   private val dateUtil = DateUtil()
 
-  fun readPassport(isoDep: IsoDep, bacKey: BACKeySpec): NfcResult {
+  fun readPassport(isoDep: IsoDep, bacKey: BACKeySpec, imagesIncluded: Boolean): NfcResult {
     var cardType = CardType.NOT_SET
 
     isoDep.timeout = 5000
@@ -97,46 +97,49 @@ class NfcPassportReader(context: Context) {
     nfcResult.mrz =
       "${mrzInfo.documentNumber}${mrzInfo.dateOfExpiry}${mrzInfo.dateOfBirth}"
 
-    if ("I" == mrzInfo.documentCode) {
-      cardType = CardType.ID_CARD
-    } else if ("P" == mrzInfo.documentCode) {
-      cardType = CardType.PASSPORT
-    }
+    if (imagesIncluded) {
+      if ("I" == mrzInfo.documentCode) {
+        cardType = CardType.ID_CARD
+      } else if ("P" == mrzInfo.documentCode) {
+        cardType = CardType.PASSPORT
+      }
 
-    val dg2In = service.getInputStream(PassportService.EF_DG2)
-    val dg2File = DG2File(dg2In)
-    val faceInfos = dg2File.faceInfos
-    val allFaceImageInfos: MutableList<FaceImageInfo> = ArrayList()
-    for (faceInfo in faceInfos) {
-      allFaceImageInfos.addAll(faceInfo.faceImageInfos)
-    }
-    if (allFaceImageInfos.isNotEmpty()) {
-      val faceImageInfo = allFaceImageInfos.iterator().next()
-      val image = bitmapUtil.getImage(faceImageInfo)
-      nfcResult.originalFacePhoto = image
-    }
-
-    /*if (cardType == CardType.PASSPORT) {
-      val dg5In = service.getInputStream(PassportService.EF_DG5)
-      val dg5File = DG5File(dg5In)
-      val displayedImageInfos = dg5File.images
-      if (displayedImageInfos.isNotEmpty()) {
-        val displayedImageInfo = displayedImageInfos.iterator().next()
-        val image = bitmapUtil.getImage(displayedImageInfo)
-
+      val dg2In = service.getInputStream(PassportService.EF_DG2)
+      val dg2File = DG2File(dg2In)
+      val faceInfos = dg2File.faceInfos
+      val allFaceImageInfos: MutableList<FaceImageInfo> = ArrayList()
+      for (faceInfo in faceInfos) {
+        allFaceImageInfos.addAll(faceInfo.faceImageInfos)
+      }
+      if (allFaceImageInfos.isNotEmpty()) {
+        val faceImageInfo = allFaceImageInfos.iterator().next()
+        val image = bitmapUtil.getImage(faceImageInfo)
         nfcResult.originalFacePhoto = image
       }
 
-      val dg7In = service.getInputStream(PassportService.EF_DG7)
-      val dg7File = DG7File(dg7In)
-      val signatureImageInfos = dg7File.images
-      if (signatureImageInfos.isNotEmpty()) {
-        val displayedImageInfo = signatureImageInfos.iterator().next()
-        val image = bitmapUtil.getImage(displayedImageInfo)
 
-        nfcResult.originalFacePhoto = image
-      }
-    }*/
+      /*if (cardType == CardType.PASSPORT) {
+        val dg5In = service.getInputStream(PassportService.EF_DG5)
+        val dg5File = DG5File(dg5In)
+        val displayedImageInfos = dg5File.images
+        if (displayedImageInfos.isNotEmpty()) {
+          val displayedImageInfo = displayedImageInfos.iterator().next()
+          val image = bitmapUtil.getImage(displayedImageInfo)
+
+          nfcResult.originalFacePhoto = image
+        }
+
+        val dg7In = service.getInputStream(PassportService.EF_DG7)
+        val dg7File = DG7File(dg7In)
+        val signatureImageInfos = dg7File.images
+        if (signatureImageInfos.isNotEmpty()) {
+          val displayedImageInfo = signatureImageInfos.iterator().next()
+          val image = bitmapUtil.getImage(displayedImageInfo)
+
+          nfcResult.originalFacePhoto = image
+        }
+      }*/
+    }
 
     if (dg11File.length > 0) return nfcResult
     else throw Exception("DG11 file is empty")

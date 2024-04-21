@@ -24,6 +24,11 @@ enum NfcPassportReaderEvent {
   NFC_STATE_CHANGED = 'onNfcStateChanged',
 }
 
+export type StartReadingParams = {
+  mrz: string;
+  imagesIncluded?: boolean; // default: false
+};
+
 export type NfcResult = {
   birthDate?: string;
   placeOfBirth?: string;
@@ -39,8 +44,8 @@ export type NfcResult = {
 };
 
 export default class NfcPassportReader {
-  static startReading(mrz: string) {
-    NfcPassportReaderNativeModule.startReading(mrz);
+  static startReading(params: StartReadingParams) {
+    NfcPassportReaderNativeModule.startReading(params);
   }
 
   static stopReading() {

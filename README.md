@@ -56,7 +56,10 @@ import type { NfcResult } from 'react-native-nfc-passport-reader';
 
 - **startReading**: Initiates the NFC passport reading process.
   ```ts
-  NfcPassportReader.startReading('MRZ');
+  NfcPassportReader.startReading({
+    mrz: 'P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<1234567890',
+    imagesIncluded: true,
+  });
   ```
 - **stopReading**: Stops the NFC passport reading process.
   ```ts

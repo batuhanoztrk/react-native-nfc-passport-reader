@@ -14,12 +14,12 @@ import android.nfc.tech.IsoDep
 import android.os.Build
 import android.provider.Settings
 import com.facebook.react.bridge.ActivityEventListener
-import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.LifecycleEventListener
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
+import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import com.nfcpassportreader.utils.JsonToReactMap
 import com.nfcpassportreader.utils.serializeToMap
@@ -37,6 +37,7 @@ class NfcPassportReaderModule(reactContext: ReactApplicationContext) :
   private val nfcPassportReader = NfcPassportReader(reactContext)
   private var adapter: NfcAdapter? = NfcAdapter.getDefaultAdapter(reactContext)
   private var mrzInfo: MRZInfo? = null
+  private var imagesIncluded = false
   private var isReading = false
   private val jsonToReactMap = JsonToReactMap()
 
@@ -153,7 +154,7 @@ class NfcPassportReaderModule(reactContext: ReactApplicationContext) :
                 mrzInfo!!.dateOfExpiry
               )
 
-              val result = nfcPassportReader.readPassport(IsoDep.get(tag), bacKey)
+              val result = nfcPassportReader.readPassport(IsoDep.get(tag), bacKey, imagesIncluded)
 
               val map = result.serializeToMap()
               val reactMap = jsonToReactMap.convertJsonToMap(JSONObject(map))
@@ -185,9 +186,23 @@ class NfcPassportReaderModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
-  fun startReading(mrzString: String) {
-    mrzInfo = MRZInfo(mrzString)
-    isReading = true
+  fun startReading(readableMap: ReadableMap?) {
+    readableMap?.let {
+      val mrzString = readableMap.getString("mrz")
+
+      imagesIncluded =
+        readableMap.hasKey("imagesIncluded") && readableMap.getBoolean("imagesIncluded")
+
+      if (mrzString.isNullOrEmpty()) {
+        sendErrorEvent(Exception("MRZ string is null or empty"))
+        return
+      }
+
+      mrzInfo = MRZInfo(mrzString)
+      isReading = true
+    } ?: run {
+      sendErrorEvent(Exception("Start reading prop is null"))
+    }
   }
 
   @ReactMethod
