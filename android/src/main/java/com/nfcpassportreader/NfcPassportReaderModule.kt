@@ -13,6 +13,7 @@ import android.nfc.Tag
 import android.nfc.tech.IsoDep
 import android.os.Build
 import android.provider.Settings
+import android.util.Log
 import com.facebook.react.bridge.ActivityEventListener
 import com.facebook.react.bridge.LifecycleEventListener
 import com.facebook.react.bridge.Promise
@@ -40,6 +41,7 @@ class NfcPassportReaderModule(reactContext: ReactApplicationContext) :
   private var includeImages = false
   private var isReading = false
   private val jsonToReactMap = JsonToReactMap()
+  private var _promise: Promise? = null
 
   init {
     reactApplicationContext.addLifecycleEventListener(this)
@@ -79,25 +81,25 @@ class NfcPassportReaderModule(reactContext: ReactApplicationContext) :
   }
 
   override fun onHostResume() {
-    if (!isReading) return
-
     try {
       adapter?.let {
         currentActivity?.let { activity ->
+          val intent = Intent(activity, activity.javaClass).apply {
+            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+          }
+
           val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             PendingIntent
               .getActivity(
                 activity, 0,
-                Intent(activity, activity.javaClass)
-                  .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
+                intent,
                 PendingIntent.FLAG_MUTABLE
               )
           } else {
             PendingIntent
               .getActivity(
                 activity, 0,
-                Intent(activity, activity.javaClass)
-                  .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
+                intent,
                 PendingIntent.FLAG_UPDATE_CURRENT
               )
           }
@@ -111,24 +113,24 @@ class NfcPassportReaderModule(reactContext: ReactApplicationContext) :
             filter
           )
         } ?: run {
-
-          sendErrorEvent(Exception("Current activity is null"))
+          Log.e("NfcPassportReader", "CurrentActivity is null")
         }
-
       } ?: run {
-        sendErrorEvent(Exception("NfcAdapter is null"))
+        Log.e("NfcPassportReader", "NfcAdapter is null")
       }
     } catch (e: Exception) {
-      sendErrorEvent(e)
+      Log.e("NfcPassportReader", e.message ?: "Unknown Error")
     }
   }
 
   override fun onHostPause() {
-//    TODO("Not yet implemented")
+  }
+
+  override fun onHostDestroy() {
+    adapter?.disableForegroundDispatch(currentActivity)
   }
 
   override fun onActivityResult(p0: Activity?, p1: Int, p2: Int, p3: Intent?) {
-//    TODO("Not yet implemented")
   }
 
   override fun onNewIntent(p0: Intent?) {
@@ -136,11 +138,6 @@ class NfcPassportReaderModule(reactContext: ReactApplicationContext) :
       if (!isReading) return
 
       sendEvent("onTagDiscovered", null)
-
-      if (mrzInfo?.documentNumber.isNullOrEmpty() || mrzInfo?.dateOfExpiry.isNullOrEmpty() || mrzInfo?.dateOfBirth.isNullOrEmpty()) {
-        sendErrorEvent(Exception("MRZ info is not set"))
-        return
-      }
 
       if (NfcAdapter.ACTION_TECH_DISCOVERED == intent.action) {
         val tag = intent.extras!!.getParcelable<Tag>(NfcAdapter.EXTRA_TAG)
@@ -159,21 +156,16 @@ class NfcPassportReaderModule(reactContext: ReactApplicationContext) :
               val map = result.serializeToMap()
               val reactMap = jsonToReactMap.convertJsonToMap(JSONObject(map))
 
-              sendEvent("onNfcResult", reactMap)
+              _promise?.resolve(reactMap)
             } catch (e: Exception) {
-              sendErrorEvent(e)
+              reject(e)
             }
           }
         } else {
-          sendErrorEvent(Exception("IsoDep is not supported"))
+          reject(Exception("Tag tech is not IsoDep"))
         }
       }
     }
-  }
-
-  override fun onHostDestroy() {
-    reactApplicationContext.removeLifecycleEventListener(this)
-    reactApplicationContext.removeActivityEventListener(this)
   }
 
   private fun sendEvent(eventName: String, params: Any?) {
@@ -181,27 +173,34 @@ class NfcPassportReaderModule(reactContext: ReactApplicationContext) :
       .emit(eventName, params)
   }
 
-  private fun sendErrorEvent(exception: Exception) {
-    sendEvent("onNfcError", exception.message ?: "Unknown Error")
+  private fun reject(e: Exception) {
+    isReading = false
+    mrzInfo = null
+    _promise?.reject(e)
   }
 
   @ReactMethod
-  fun startReading(readableMap: ReadableMap?) {
+  fun startReading(readableMap: ReadableMap?, promise: Promise) {
     readableMap?.let {
-      val mrzString = readableMap.getString("mrz")
+      try {
+        _promise = promise
+        val mrzString = readableMap.getString("mrz")
 
-      includeImages =
-        readableMap.hasKey("includeImages") && readableMap.getBoolean("includeImages")
+        includeImages =
+          readableMap.hasKey("includeImages") && readableMap.getBoolean("includeImages")
 
-      if (mrzString.isNullOrEmpty()) {
-        sendErrorEvent(Exception("MRZ string is null or empty"))
-        return
+        if (mrzString.isNullOrEmpty()) {
+          reject(Exception("MRZ string is null"))
+          return
+        }
+
+        mrzInfo = MRZInfo(mrzString)
+        isReading = true
+      } catch (e: Exception) {
+        reject(Exception("MRZ string is not valid"))
       }
-
-      mrzInfo = MRZInfo(mrzString)
-      isReading = true
     } ?: run {
-      sendErrorEvent(Exception("Start reading prop is null"))
+      reject(Exception("ReadableMap is null"))
     }
   }
 
@@ -209,7 +208,6 @@ class NfcPassportReaderModule(reactContext: ReactApplicationContext) :
   fun stopReading() {
     isReading = false
     mrzInfo = null
-    adapter?.disableForegroundDispatch(currentActivity)
   }
 
   @ReactMethod

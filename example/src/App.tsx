@@ -7,24 +7,15 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import NfcPassportReader from 'react-native-nfc-passport-reader';
-import type { NfcResult } from 'react-native-nfc-passport-reader';
+import NfcPassportReader, {
+  type NfcResult,
+} from 'react-native-nfc-passport-reader';
 
 export default function App() {
   const [result, setResult] = React.useState<NfcResult>();
   const [tagDiscovered, setTagDiscovered] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    NfcPassportReader.addOnSuccessListener((data: NfcResult) => {
-      setTagDiscovered(false);
-      setResult(data);
-    });
-
-    NfcPassportReader.addOnErrorListener((error: string) => {
-      setTagDiscovered(false);
-      console.error(error);
-    });
-
     NfcPassportReader.addOnTagDiscoveredListener(() => {
       console.log('Tag Discovered');
       setTagDiscovered(true);
@@ -42,9 +33,17 @@ export default function App() {
 
   const startReading = () => {
     NfcPassportReader.startReading({
-      mrz: 'P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<1234567890',
+      mrz: 'I<TURA05C575327<46099847164<<<0004019M2709031TUR<<<<<<<<<<<4OEZTUERK<<BATUHAN<<<<<<<<<<<<<',
       includeImages: true,
-    });
+    })
+      .then((res) => {
+        setTagDiscovered(false);
+        setResult(res);
+      })
+      .catch((e) => {
+        setTagDiscovered(false);
+        console.error(e.message);
+      });
   };
 
   const stopReading = () => {

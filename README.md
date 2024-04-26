@@ -56,7 +56,7 @@ import type { NfcResult } from 'react-native-nfc-passport-reader';
 
 - **startReading**: Initiates the NFC passport reading process.
   ```ts
-  NfcPassportReader.startReading({
+  const result: NfcResult = await NfcPassportReader.startReading({
     mrz: 'P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<1234567890',
     includeImages: true,
   });
@@ -68,18 +68,6 @@ import type { NfcResult } from 'react-native-nfc-passport-reader';
 
 ### Event Listeners
 
-- **addOnSuccessListener**: Listens for successful NFC read operations.
-  ```ts
-  NfcPassportReader.addOnSuccessListener((data: NfcResult) => {
-    console.log('NFC Read Success:', data);
-  });
-  ```
-- **addOnErrorListener**: Captures errors during NFC operations.
-  ```ts
-  NfcPassportReader.addOnErrorListener((error: string) => {
-    console.error('NFC Read Error:', error);
-  });
-  ```
 - **addOnTagDiscoveredListener**: Triggers when an NFC tag is discovered.
   ```ts
   NfcPassportReader.addOnTagDiscoveredListener(() => {

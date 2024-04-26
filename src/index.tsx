@@ -18,8 +18,6 @@ const NfcPassportReaderNativeModule = NativeModules.NfcPassportReader
     );
 
 enum NfcPassportReaderEvent {
-  SUCCESS = 'onNfcResult',
-  ERROR = 'onNfcError',
   TAG_DISCOVERED = 'onTagDiscovered',
   NFC_STATE_CHANGED = 'onNfcStateChanged',
 }
@@ -44,20 +42,12 @@ export type NfcResult = {
 };
 
 export default class NfcPassportReader {
-  static startReading(params: StartReadingParams) {
-    NfcPassportReaderNativeModule.startReading(params);
+  static startReading(params: StartReadingParams): Promise<NfcResult> {
+    return NfcPassportReaderNativeModule.startReading(params);
   }
 
   static stopReading() {
     NfcPassportReaderNativeModule.stopReading();
-  }
-
-  static addOnSuccessListener(callback: (data: NfcResult) => void) {
-    this.addListener(NfcPassportReaderEvent.SUCCESS, callback);
-  }
-
-  static addOnErrorListener(callback: (error: string) => void) {
-    this.addListener(NfcPassportReaderEvent.ERROR, callback);
   }
 
   static addOnTagDiscoveredListener(callback: () => void) {
@@ -88,8 +78,6 @@ export default class NfcPassportReader {
   }
 
   static removeListeners() {
-    DeviceEventEmitter.removeAllListeners(NfcPassportReaderEvent.SUCCESS);
-    DeviceEventEmitter.removeAllListeners(NfcPassportReaderEvent.ERROR);
     DeviceEventEmitter.removeAllListeners(
       NfcPassportReaderEvent.TAG_DISCOVERED
     );
