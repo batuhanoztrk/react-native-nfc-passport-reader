@@ -91,8 +91,7 @@ class NfcPassportReader(context: Context) {
 
     nfcResult.documentNo = mrzInfo.documentNumber
     nfcResult.nationality = mrzInfo.nationality
-    nfcResult.mrz =
-      "${mrzInfo.documentNumber}${mrzInfo.dateOfExpiry}${mrzInfo.dateOfBirth}"
+    nfcResult.mrz = mrzInfo.toString()
 
     if (includeImages) {
       val dg2In = service.getInputStream(PassportService.EF_DG2)

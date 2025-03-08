@@ -6,6 +6,7 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
+  SafeAreaView,
 } from 'react-native';
 import NfcPassportReader, {
   type NfcResult,
@@ -33,8 +34,12 @@ export default function App() {
 
   const startReading = () => {
     NfcPassportReader.startReading({
-      mrz: 'I<TURA05C575327<46099847164<<<0004019M2709031TUR<<<<<<<<<<<4OEZTUERK<<BATUHAN<<<<<<<<<<<<<',
-      includeImages: true,
+      bacKey: {
+        documentNo: '123456789', // Document Number
+        expiryDate: '2025-03-09', // YYYY-MM-DD
+        birthDate: '2025-03-09', // YYYY-MM-DD
+      },
+      includeImages: true, // Include images in the result (default: false)
     })
       .then((res) => {
         setTagDiscovered(false);
@@ -78,7 +83,7 @@ export default function App() {
   };
 
   return (
-    <>
+    <SafeAreaView style={styles.safeArea}>
       <ScrollView style={styles.container}>
         <View style={styles.box}>
           <View style={styles.buttonContainer}>
@@ -114,11 +119,14 @@ export default function App() {
           </View>
         </View>
       )}
-    </>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: '#252526',

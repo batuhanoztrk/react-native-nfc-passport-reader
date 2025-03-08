@@ -5,8 +5,11 @@ This React Native plugin enables the reading of NFC-enabled passports using nati
 ## Features
 
 - Start and stop NFC passport reading
+- Basic Access Control (BAC) support for secure passport reading
 - Check if NFC is supported and enabled on the device
 - Open device NFC settings
+- Support for both iOS and Android platforms
+- Optional image extraction from passport
 
 ## Installation
 
@@ -33,6 +36,12 @@ To use the NFC Passport Reader in your React Native project, follow these steps:
      </array>
      ```
    - Ensure your entitlements include NFC tag reading capability.
+   - Add the following pod to your Podfile:
+     ```ruby
+     pod 'OpenSSL-Universal', '~> 1.1.1900'
+     ```
+   - Disable Flipper in your Podfile (required for proper functionality)
+
 4. **Android Additional Setup**:
    - Add NFC permissions in your AndroidManifest.xml.
      ```xml
@@ -40,8 +49,6 @@ To use the NFC Passport Reader in your React Native project, follow these steps:
      <uses-permission android:name="android.permission.NFC" />
      ```
    - Ensure your device has NFC capabilities and that NFC is enabled.
-
-**Note**: This plugin is currently only available for Android devices.
 
 ## Usage
 
@@ -57,16 +64,20 @@ import type { NfcResult } from 'react-native-nfc-passport-reader';
 - **startReading**: Initiates the NFC passport reading process.
   ```ts
   const result: NfcResult = await NfcPassportReader.startReading({
-    mrz: 'P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<1234567890',
-    includeImages: true,
+    bacKey: {
+      documentNo: '123456789', // Document Number
+      expiryDate: '2025-03-09', // YYYY-MM-DD
+      birthDate: '2025-03-09', // YYYY-MM-DD
+    },
+    includeImages: true, // Include images in the result (default: false)
   });
   ```
-- **stopReading**: Stops the NFC passport reading process.
+- **stopReading**: Stops the NFC passport reading process. ***(Only Android)***
   ```ts
   NfcPassportReader.stopReading();
   ```
 
-### Event Listeners
+### Event Listeners (Only Android)
 
 - **addOnTagDiscoveredListener**: Triggers when an NFC tag is discovered.
   ```ts
@@ -87,14 +98,14 @@ import type { NfcResult } from 'react-native-nfc-passport-reader';
   ```ts
   const supported = await NfcPassportReader.isNfcSupported();
   ```
-- **stopReading**: Checks if NFC is enabled on the device.
+- **isNfcEnabled**: Checks if NFC is enabled on the device.
   ```ts
   const enabled = await NfcPassportReader.isNfcEnabled();
   ```
 
 ### Settings
 
-- **openNfcSettings**: Opens the device's NFC settings.
+- **openNfcSettings**: Opens the device's NFC settings. ***(Only Android)***
   ```ts
   NfcPassportReader.openNfcSettings();
   ```
@@ -102,6 +113,10 @@ import type { NfcResult } from 'react-native-nfc-passport-reader';
 ## Example
 
 For a detailed example of how to use the NFC Passport Reader, please see the [Example App](example/src/App.tsx).
+
+## Acknowledgments
+
+Special thanks to [Andy Qua](https://github.com/AndyQ) for his excellent [NFCPassportReader](https://github.com/AndyQ/NFCPassportReader) library that powers the iOS implementation of this package. His work on implementing BAC, Secure Messaging, and various passport data group readings has been instrumental in making this React Native wrapper possible.
 
 ## Contributing
 
