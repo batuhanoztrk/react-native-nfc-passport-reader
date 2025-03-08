@@ -23,21 +23,25 @@ enum NfcPassportReaderEvent {
 }
 
 export type StartReadingParams = {
-  mrz: string;
+  bacKey: {
+    documentNo: string;
+    expiryDate: string;
+    birthDate: string;
+  };
   includeImages?: boolean; // default: false
 };
 
 export type NfcResult = {
-  birthDate?: string;
+  birthDate: string;
   placeOfBirth?: string;
-  documentNo?: string;
-  expiryDate?: string;
-  firstName?: string;
-  gender?: string;
+  documentNo: string;
+  expiryDate: string;
+  firstName: string;
+  gender: string;
   identityNo?: string;
-  lastName?: string;
-  mrz?: string;
-  nationality?: string;
+  lastName: string;
+  mrz: string;
+  nationality: string;
   originalFacePhoto?: string; // base64
 };
 
@@ -47,19 +51,33 @@ export default class NfcPassportReader {
   }
 
   static stopReading() {
-    NfcPassportReaderNativeModule.stopReading();
+    if (Platform.OS === 'android') {
+      NfcPassportReaderNativeModule.stopReading();
+    } else {
+      throw new Error('Unsupported platform');
+    }
   }
 
   static addOnTagDiscoveredListener(callback: () => void) {
-    this.addListener(NfcPassportReaderEvent.TAG_DISCOVERED, callback);
+    if (Platform.OS === 'android') {
+      this.addListener(NfcPassportReaderEvent.TAG_DISCOVERED, callback);
+    }
   }
 
   static addOnNfcStateChangedListener(callback: (state: 'off' | 'on') => void) {
-    this.addListener(NfcPassportReaderEvent.NFC_STATE_CHANGED, callback);
+    if (Platform.OS === 'android') {
+      this.addListener(NfcPassportReaderEvent.NFC_STATE_CHANGED, callback);
+    }
   }
 
   static isNfcEnabled(): Promise<boolean> {
-    return NfcPassportReaderNativeModule.isNfcEnabled();
+    if (Platform.OS === 'android') {
+      return NfcPassportReaderNativeModule.isNfcEnabled();
+    } else if (Platform.OS === 'ios') {
+      return NfcPassportReaderNativeModule.isNfcSupported();
+    } else {
+      throw new Error('Unsupported platform');
+    }
   }
 
   static isNfcSupported(): Promise<boolean> {
@@ -67,7 +85,11 @@ export default class NfcPassportReader {
   }
 
   static openNfcSettings(): Promise<boolean> {
-    return NfcPassportReaderNativeModule.openNfcSettings();
+    if (Platform.OS === 'android') {
+      return NfcPassportReaderNativeModule.openNfcSettings();
+    } else {
+      throw new Error('Unsupported platform');
+    }
   }
 
   private static addListener(
@@ -78,11 +100,13 @@ export default class NfcPassportReader {
   }
 
   static removeListeners() {
-    DeviceEventEmitter.removeAllListeners(
-      NfcPassportReaderEvent.TAG_DISCOVERED
-    );
-    DeviceEventEmitter.removeAllListeners(
-      NfcPassportReaderEvent.NFC_STATE_CHANGED
-    );
+    if (Platform.OS === 'android') {
+      DeviceEventEmitter.removeAllListeners(
+        NfcPassportReaderEvent.TAG_DISCOVERED
+      );
+      DeviceEventEmitter.removeAllListeners(
+        NfcPassportReaderEvent.NFC_STATE_CHANGED
+      );
+    }
   }
 }

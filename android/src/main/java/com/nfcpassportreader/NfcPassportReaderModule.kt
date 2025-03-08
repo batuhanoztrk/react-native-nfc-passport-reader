@@ -31,17 +31,21 @@ import org.jmrtd.BACKey
 import org.jmrtd.BACKeySpec
 import org.jmrtd.lds.icao.MRZInfo
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class NfcPassportReaderModule(reactContext: ReactApplicationContext) :
   ReactContextBaseJavaModule(reactContext), LifecycleEventListener, ActivityEventListener {
 
   private val nfcPassportReader = NfcPassportReader(reactContext)
   private var adapter: NfcAdapter? = NfcAdapter.getDefaultAdapter(reactContext)
-  private var mrzInfo: MRZInfo? = null
+  private var bacKey: BACKeySpec? = null
   private var includeImages = false
   private var isReading = false
   private val jsonToReactMap = JsonToReactMap()
   private var _promise: Promise? = null
+  private val inputDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+  private val outputDateFormat = SimpleDateFormat("yyMMdd", Locale.getDefault())
 
   init {
     reactApplicationContext.addLifecycleEventListener(this)
@@ -145,13 +149,7 @@ class NfcPassportReaderModule(reactContext: ReactApplicationContext) :
         if (listOf(*tag!!.techList).contains("android.nfc.tech.IsoDep")) {
           CoroutineScope(Dispatchers.IO).launch {
             try {
-              val bacKey: BACKeySpec = BACKey(
-                mrzInfo!!.documentNumber,
-                mrzInfo!!.dateOfBirth,
-                mrzInfo!!.dateOfExpiry
-              )
-
-              val result = nfcPassportReader.readPassport(IsoDep.get(tag), bacKey, includeImages)
+              val result = nfcPassportReader.readPassport(IsoDep.get(tag), bacKey!!, includeImages)
 
               val map = result.serializeToMap()
               val reactMap = jsonToReactMap.convertJsonToMap(JSONObject(map))
@@ -175,29 +173,48 @@ class NfcPassportReaderModule(reactContext: ReactApplicationContext) :
 
   private fun reject(e: Exception) {
     isReading = false
-    mrzInfo = null
+    bacKey = null
     _promise?.reject(e)
   }
 
   @ReactMethod
   fun startReading(readableMap: ReadableMap?, promise: Promise) {
     readableMap?.let {
-      try {
-        _promise = promise
-        val mrzString = readableMap.getString("mrz")
+      _promise = promise
+      val bacKey = readableMap.getMap("bacKey")
 
-        includeImages =
-          readableMap.hasKey("includeImages") && readableMap.getBoolean("includeImages")
+      includeImages =
+        readableMap.hasKey("includeImages") && readableMap.getBoolean("includeImages")
 
-        if (mrzString.isNullOrEmpty()) {
-          reject(Exception("MRZ string is null"))
+      bacKey?.let {
+        val documentNo = it.getString("documentNo")
+        val expiryDate = it.getString("expiryDate")?.let { date ->
+          try {
+            outputDateFormat.format(inputDateFormat.parse(date)!!)
+          } catch (e: Exception) {
+            null
+          }
+        }
+        val birthDate = it.getString("birthDate")?.let { date ->
+          try {
+            outputDateFormat.format(inputDateFormat.parse(date)!!)
+          } catch (e: Exception) {
+            null
+          }
+        }
+
+        if (documentNo == null || expiryDate == null || birthDate == null) {
+          reject(Exception("BAC key is not valid"))
           return
         }
 
-        mrzInfo = MRZInfo(mrzString)
+        this.bacKey = BACKey(
+          documentNo, birthDate, expiryDate
+        )
+
         isReading = true
-      } catch (e: Exception) {
-        reject(Exception("MRZ string is not valid"))
+      } ?: run {
+        reject(Exception("BAC key is null"))
       }
     } ?: run {
       reject(Exception("ReadableMap is null"))
@@ -207,7 +224,7 @@ class NfcPassportReaderModule(reactContext: ReactApplicationContext) :
   @ReactMethod
   fun stopReading() {
     isReading = false
-    mrzInfo = null
+    bacKey = null
   }
 
   @ReactMethod
