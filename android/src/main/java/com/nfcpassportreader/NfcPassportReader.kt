@@ -19,7 +19,7 @@ class NfcPassportReader(context: Context) {
   private val dateUtil = DateUtil()
 
   fun readPassport(isoDep: IsoDep, bacKey: BACKeySpec, includeImages: Boolean): NfcResult {
-    isoDep.timeout = 5000
+    isoDep.timeout = 10000
 
     val cardService = CardService.getInstance(isoDep)
     cardService.open()
