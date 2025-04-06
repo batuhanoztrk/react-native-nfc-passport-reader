@@ -21,7 +21,7 @@ class DateUtil {
   }
 
   fun convertFromNfcDate(nfcDate: String): String? {
-    val date = stringToDate(nfcDate, SimpleDateFormat("yyyyMMdd"))
+    val date = stringToDate(nfcDate, SimpleDateFormat("yyMMdd"))
     return dateToString(date, SimpleDateFormat("yyyy-MM-dd"))
   }
 }
