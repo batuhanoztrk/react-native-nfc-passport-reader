@@ -81,17 +81,25 @@ class NfcPassportReader(context: Context) {
     nfcResult.firstName = name
     nfcResult.lastName = surname
 
-    nfcResult.placeOfBirth = dg11File.placeOfBirth.joinToString(separator = " ")
+    if(!dg11File.placeOfBirth.isNullOrEmpty()){
+      nfcResult.placeOfBirth = dg11File.placeOfBirth.joinToString(separator = " ")
+    }
 
-    nfcResult.identityNo = mrzInfo.personalNumber
-    nfcResult.gender = mrzInfo.gender.toString()
+    if(!dg11File.fullDateOfBirth.isNullOrEmpty()){
+      nfcResult.birthDate = dateUtil.convertFromMrzDate(dg11File.fullDateOfBirth)
+    }
 
-    nfcResult.birthDate = dateUtil.convertFromNfcDate(dg11File.fullDateOfBirth)
-    nfcResult.expiryDate = dateUtil.convertFromMrzDate(mrzInfo.dateOfExpiry)
+    mrzInfo.let {
+      if(!it.dateOfExpiry.isNullOrEmpty()){
+        nfcResult.expiryDate = dateUtil.convertFromMrzDate(it.dateOfExpiry)
+      }
 
-    nfcResult.documentNo = mrzInfo.documentNumber
-    nfcResult.nationality = mrzInfo.nationality
-    nfcResult.mrz = mrzInfo.toString()
+      nfcResult.identityNo = mrzInfo.personalNumber
+      nfcResult.gender = mrzInfo.gender.toString()
+      nfcResult.documentNo = it.documentNumber
+      nfcResult.nationality = it.nationality
+      nfcResult.mrz = it.toString()
+    }
 
     if (includeImages) {
       val dg2In = service.getInputStream(PassportService.EF_DG2)
