@@ -75,11 +75,12 @@ class NfcPassportReader(context: Context) {
     val dg11In = service.getInputStream(PassportService.EF_DG11)
     val dg11File = DG11File(dg11In)
 
-    val name = dg11File.nameOfHolder.substringAfterLast("<<").replace("<", " ")
-    val surname = dg11File.nameOfHolder.substringBeforeLast("<<")
-
-    nfcResult.firstName = name
-    nfcResult.lastName = surname
+    if (!dg11File.nameOfHolder.isNullOrEmpty()) {
+      val name = dg11File.nameOfHolder.substringAfterLast("<<").replace("<", " ")
+      val surname = dg11File.nameOfHolder.substringBeforeLast("<<")
+      nfcResult.firstName = name
+      nfcResult.lastName = surname
+    }
 
     if(!dg11File.placeOfBirth.isNullOrEmpty()){
       nfcResult.placeOfBirth = dg11File.placeOfBirth.joinToString(separator = " ")
