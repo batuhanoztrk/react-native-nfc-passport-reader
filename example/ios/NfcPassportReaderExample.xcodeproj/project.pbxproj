@@ -12,8 +12,8 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		8C4B7B59D27CF70AE8A9F3FB /* libPods-NfcPassportReaderExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9846B4CE627A19515F923A /* libPods-NfcPassportReaderExample.a */; };
-		91EDECBD5944367F3AF130C8 /* libPods-NfcPassportReaderExample-NfcPassportReaderExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0628B9C66F7CDBD0BF3E7D49 /* libPods-NfcPassportReaderExample-NfcPassportReaderExampleTests.a */; };
+		92731DA3A09646F0B766AC4E /* libPods-NfcPassportReaderExample-NfcPassportReaderExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 179E64717A9C35FB25846430 /* libPods-NfcPassportReaderExample-NfcPassportReaderExampleTests.a */; };
+		A738A580B5CB040243AF21BD /* libPods-NfcPassportReaderExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D659D78F6F76B110B9A1F64 /* libPods-NfcPassportReaderExample.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,21 +30,21 @@
 		00E356EE1AD99517003FC87E /* NfcPassportReaderExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NfcPassportReaderExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* NfcPassportReaderExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NfcPassportReaderExampleTests.m; sourceTree = "<group>"; };
-		0628B9C66F7CDBD0BF3E7D49 /* libPods-NfcPassportReaderExample-NfcPassportReaderExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NfcPassportReaderExample-NfcPassportReaderExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* NfcPassportReaderExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NfcPassportReaderExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = NfcPassportReaderExample/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = NfcPassportReaderExample/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = NfcPassportReaderExample/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = NfcPassportReaderExample/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = NfcPassportReaderExample/main.m; sourceTree = "<group>"; };
-		1E7E726E5745BB9C7DDF1786 /* Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests.release.xcconfig"; path = "Target Support Files/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests.release.xcconfig"; sourceTree = "<group>"; };
+		179E64717A9C35FB25846430 /* libPods-NfcPassportReaderExample-NfcPassportReaderExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NfcPassportReaderExample-NfcPassportReaderExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D659D78F6F76B110B9A1F64 /* libPods-NfcPassportReaderExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NfcPassportReaderExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E0F59092D7CCF9300BF941A /* NfcPassportReaderExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = NfcPassportReaderExample.entitlements; path = NfcPassportReaderExample/NfcPassportReaderExample.entitlements; sourceTree = "<group>"; };
-		45EB034F31AC43C41DBC7FC8 /* Pods-NfcPassportReaderExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NfcPassportReaderExample.release.xcconfig"; path = "Target Support Files/Pods-NfcPassportReaderExample/Pods-NfcPassportReaderExample.release.xcconfig"; sourceTree = "<group>"; };
-		78BCF97A9EA21A132408F571 /* Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
-		7E9846B4CE627A19515F923A /* libPods-NfcPassportReaderExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NfcPassportReaderExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		58888F977EFA9B5318A934EF /* Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = NfcPassportReaderExample/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8D96C7BDBD1F4650FD015776 /* Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests.release.xcconfig"; path = "Target Support Files/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests.release.xcconfig"; sourceTree = "<group>"; };
+		CD46665DE72C61CFC8B61984 /* Pods-NfcPassportReaderExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NfcPassportReaderExample.debug.xcconfig"; path = "Target Support Files/Pods-NfcPassportReaderExample/Pods-NfcPassportReaderExample.debug.xcconfig"; sourceTree = "<group>"; };
+		DBFB9807BD4BE0F8776517F8 /* Pods-NfcPassportReaderExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NfcPassportReaderExample.release.xcconfig"; path = "Target Support Files/Pods-NfcPassportReaderExample/Pods-NfcPassportReaderExample.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		FF4F32B3C42888846DB6F7CA /* Pods-NfcPassportReaderExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NfcPassportReaderExample.debug.xcconfig"; path = "Target Support Files/Pods-NfcPassportReaderExample/Pods-NfcPassportReaderExample.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91EDECBD5944367F3AF130C8 /* libPods-NfcPassportReaderExample-NfcPassportReaderExampleTests.a in Frameworks */,
+				92731DA3A09646F0B766AC4E /* libPods-NfcPassportReaderExample-NfcPassportReaderExampleTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C4B7B59D27CF70AE8A9F3FB /* libPods-NfcPassportReaderExample.a in Frameworks */,
+				A738A580B5CB040243AF21BD /* libPods-NfcPassportReaderExample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,8 +102,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				7E9846B4CE627A19515F923A /* libPods-NfcPassportReaderExample.a */,
-				0628B9C66F7CDBD0BF3E7D49 /* libPods-NfcPassportReaderExample-NfcPassportReaderExampleTests.a */,
+				1D659D78F6F76B110B9A1F64 /* libPods-NfcPassportReaderExample.a */,
+				179E64717A9C35FB25846430 /* libPods-NfcPassportReaderExample-NfcPassportReaderExampleTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -142,10 +142,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				FF4F32B3C42888846DB6F7CA /* Pods-NfcPassportReaderExample.debug.xcconfig */,
-				45EB034F31AC43C41DBC7FC8 /* Pods-NfcPassportReaderExample.release.xcconfig */,
-				78BCF97A9EA21A132408F571 /* Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests.debug.xcconfig */,
-				1E7E726E5745BB9C7DDF1786 /* Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests.release.xcconfig */,
+				CD46665DE72C61CFC8B61984 /* Pods-NfcPassportReaderExample.debug.xcconfig */,
+				DBFB9807BD4BE0F8776517F8 /* Pods-NfcPassportReaderExample.release.xcconfig */,
+				58888F977EFA9B5318A934EF /* Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests.debug.xcconfig */,
+				8D96C7BDBD1F4650FD015776 /* Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -157,12 +157,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "NfcPassportReaderExampleTests" */;
 			buildPhases = (
-				F1543F7C5EDF47B200D0BD80 /* [CP] Check Pods Manifest.lock */,
+				7D72DA6DAFF605D154F461BF /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				7105B08E9874FA10D034BEAA /* [CP] Embed Pods Frameworks */,
-				10234B5F5D4B9596290FEDB4 /* [CP] Copy Pods Resources */,
+				64AB47ABE3CFD9C978DF3665 /* [CP] Embed Pods Frameworks */,
+				BBE33F1CE322307A6049CAFC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -178,13 +178,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "NfcPassportReaderExample" */;
 			buildPhases = (
-				C01F451220E7231CDE391806 /* [CP] Check Pods Manifest.lock */,
+				7FAD0A1A300B0AF3E13581C2 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				60D22E196751BE8332818FDA /* [CP] Embed Pods Frameworks */,
-				02E3982317B5535B10A7138A /* [CP] Copy Pods Resources */,
+				B942B5D36DE7DF381DBBE3B3 /* [CP] Embed Pods Frameworks */,
+				1AE5E28E0AE03E27BD374896 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -267,7 +267,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		02E3982317B5535B10A7138A /* [CP] Copy Pods Resources */ = {
+		1AE5E28E0AE03E27BD374896 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -284,41 +284,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NfcPassportReaderExample/Pods-NfcPassportReaderExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		10234B5F5D4B9596290FEDB4 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		60D22E196751BE8332818FDA /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NfcPassportReaderExample/Pods-NfcPassportReaderExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NfcPassportReaderExample/Pods-NfcPassportReaderExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NfcPassportReaderExample/Pods-NfcPassportReaderExample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7105B08E9874FA10D034BEAA /* [CP] Embed Pods Frameworks */ = {
+		64AB47ABE3CFD9C978DF3665 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -335,7 +301,29 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C01F451220E7231CDE391806 /* [CP] Check Pods Manifest.lock */ = {
+		7D72DA6DAFF605D154F461BF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7FAD0A1A300B0AF3E13581C2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -357,26 +345,38 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F1543F7C5EDF47B200D0BD80 /* [CP] Check Pods Manifest.lock */ = {
+		B942B5D36DE7DF381DBBE3B3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NfcPassportReaderExample/Pods-NfcPassportReaderExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests-checkManifestLockResult.txt",
+				"${PODS_ROOT}/Target Support Files/Pods-NfcPassportReaderExample/Pods-NfcPassportReaderExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NfcPassportReaderExample/Pods-NfcPassportReaderExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BBE33F1CE322307A6049CAFC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests/Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -412,7 +412,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 78BCF97A9EA21A132408F571 /* Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests.debug.xcconfig */;
+			baseConfigurationReference = 58888F977EFA9B5318A934EF /* Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -439,7 +439,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1E7E726E5745BB9C7DDF1786 /* Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests.release.xcconfig */;
+			baseConfigurationReference = 8D96C7BDBD1F4650FD015776 /* Pods-NfcPassportReaderExample-NfcPassportReaderExampleTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -463,7 +463,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF4F32B3C42888846DB6F7CA /* Pods-NfcPassportReaderExample.debug.xcconfig */;
+			baseConfigurationReference = CD46665DE72C61CFC8B61984 /* Pods-NfcPassportReaderExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -492,7 +492,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 45EB034F31AC43C41DBC7FC8 /* Pods-NfcPassportReaderExample.release.xcconfig */;
+			baseConfigurationReference = DBFB9807BD4BE0F8776517F8 /* Pods-NfcPassportReaderExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
