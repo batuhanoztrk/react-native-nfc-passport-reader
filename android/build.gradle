@@ -80,7 +80,6 @@ android {
 repositories {
   mavenCentral()
   google()
-  jcenter()
 }
 
 def kotlin_version = getExtOrDefault("kotlinVersion")
