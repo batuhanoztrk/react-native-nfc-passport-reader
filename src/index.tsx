@@ -1,4 +1,5 @@
-import { NativeModules, DeviceEventEmitter, Platform } from 'react-native';
+import { DeviceEventEmitter, Platform } from 'react-native';
+import NativeNfcPassportReader from './NativeNfcPassportReader';
 
 const LINKING_ERROR =
   `The package 'react-native-nfc-passport-reader' doesn't seem to be linked. Make sure: \n\n` +
@@ -6,10 +7,10 @@ const LINKING_ERROR =
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo Go\n';
 
-const NfcPassportReaderNativeModule = NativeModules.NfcPassportReader
-  ? NativeModules.NfcPassportReader
+const NfcPassportReaderNativeModule = NativeNfcPassportReader
+  ? NativeNfcPassportReader
   : new Proxy(
-      {},
+      {} as any,
       {
         get() {
           throw new Error(LINKING_ERROR);
