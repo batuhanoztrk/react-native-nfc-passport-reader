@@ -87,8 +87,8 @@ class NfcPassportReaderModule(reactContext: ReactApplicationContext) :
   override fun onHostResume() {
     try {
       adapter?.let {
-        currentActivity?.let { activity ->
-          val intent = Intent(activity, activity.javaClass).apply {
+        reactApplicationContext.currentActivity?.let { activity ->
+          val intent = Intent(activity, activity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
           }
 
@@ -131,37 +131,35 @@ class NfcPassportReaderModule(reactContext: ReactApplicationContext) :
   }
 
   override fun onHostDestroy() {
-    adapter?.disableForegroundDispatch(currentActivity)
+    adapter?.disableForegroundDispatch(reactApplicationContext.currentActivity)
   }
 
-  override fun onActivityResult(p0: Activity?, p1: Int, p2: Int, p3: Intent?) {
+  override fun onActivityResult(activity: Activity, requestCode: Int, resultCode: Int, data: Intent?) {
   }
 
-  override fun onNewIntent(p0: Intent?) {
-    p0?.let { intent ->
-      if (!isReading) return
+  override fun onNewIntent(intent: Intent) {
+    if (!isReading) return
 
-      sendEvent("onTagDiscovered", null)
+    sendEvent("onTagDiscovered", null)
 
-      if (NfcAdapter.ACTION_TECH_DISCOVERED == intent.action) {
-        val tag = intent.extras!!.getParcelable<Tag>(NfcAdapter.EXTRA_TAG)
+    if (NfcAdapter.ACTION_TECH_DISCOVERED == intent.action) {
+      val tag = intent.extras!!.getParcelable<Tag>(NfcAdapter.EXTRA_TAG)
 
-        if (listOf(*tag!!.techList).contains("android.nfc.tech.IsoDep")) {
-          CoroutineScope(Dispatchers.IO).launch {
-            try {
-              val result = nfcPassportReader.readPassport(IsoDep.get(tag), bacKey!!, includeImages)
+      if (listOf(*tag!!.techList).contains("android.nfc.tech.IsoDep")) {
+        CoroutineScope(Dispatchers.IO).launch {
+          try {
+            val result = nfcPassportReader.readPassport(IsoDep.get(tag), bacKey!!, includeImages)
 
-              val map = result.serializeToMap()
-              val reactMap = jsonToReactMap.convertJsonToMap(JSONObject(map))
+            val map = result.serializeToMap()
+            val reactMap = jsonToReactMap.convertJsonToMap(JSONObject(map))
 
-              _promise?.resolve(reactMap)
-            } catch (e: Exception) {
-              reject(e)
-            }
+            _promise?.resolve(reactMap)
+          } catch (e: Exception) {
+            reject(e)
           }
-        } else {
-          reject(Exception("Tag tech is not IsoDep"))
         }
+      } else {
+        reject(Exception("Tag tech is not IsoDep"))
       }
     }
   }
