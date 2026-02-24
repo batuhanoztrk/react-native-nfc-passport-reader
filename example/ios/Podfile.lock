@@ -887,7 +887,7 @@ PODS:
   - React-Mapbuffer (0.73.6):
     - glog
     - React-debug
-  - react-native-nfc-passport-reader (0.2.4):
+  - react-native-nfc-passport-reader (0.2.5):
     - glog
     - OpenSSL-Universal (~> 1.1.1900)
     - RCT-Folly (= 2022.05.16.00)
